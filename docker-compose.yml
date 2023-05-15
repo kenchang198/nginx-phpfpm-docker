@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  web:
+    build: ./nginx
+    ports:
+      - "80:80"
+  app:
+    build: ./app
+    volumes:
+      - "./app/webroot:/app"
+  db:
+    build: ./db
+    # restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./db/sqls:/docker-entrypoint-initdb.d
